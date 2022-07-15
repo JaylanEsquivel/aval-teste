@@ -12,7 +12,7 @@ $(document).ready(function() {
 	getproduct(param);	
 }); 
 
-// FUNÇÕES DE FILTROS
+// AÇÕES DE FILTROS
 $('#search').keyup(function() { // CONSULTA POR NOME
 	  if ($('#search').val) {
 		  
@@ -47,8 +47,64 @@ $('#tipo').change(function() { // CONSULTA POR PREÇO
 	  }
 });
 
-// FUNÇÕES DE FILTROS
+// AÇÕES DE FILTROS
+// FUNÇÕES DOS BOTÕES
 
+$('#btn-inserir').click(function() { // CONSULTA POR PREÇO
+	//alert("insert");  
+	// DADOS DO FORMULARIO
+	var produto = $('#produto').val();
+	var preco   = $('#preco').val();
+	var cor     = $('#cor').val();
+	// DADOS DO FORMULARIO
+	
+	var param = "POST_paramentro=setProduct&preco="+preco+"&produto="+produto+"&cor="+cor;
+		upproduct(param);			
+});
+$('#btn-update').click(function() { // CONSULTA POR PREÇO
+	//alert("update");  
+	var idhidden     = $('#idhidden').val();
+	if(idhidden){
+		// DADOS DO FORMULARIO
+		var produto = $('#produto').val();
+		var preco   = $('#preco').val();
+		var cor     = $('#cor').val();
+		// DADOS DO FORMULARIO
+		
+		var param = "POST_paramentro=upProduct&preco="+preco+"&produto="+produto+"&cor="+cor+"&id="+idhidden;
+			upproduct(param);	
+	}else{
+			alert("Para esa ação é necessário selecionar o item na tabela abaixo primeiro.");
+	}
+});
+$('#btn-delete').click(function() { // CONSULTA POR PREÇO
+		//alert("delete");  
+		var idhidden     = $('#idhidden').val();
+		if(idhidden){
+			if (confirm("Tem certeza que deseja apagar esse produto ?") == true) {
+				// DADOS DO FORMULARIO
+				var produto = $('#produto').val();
+				var preco   = $('#preco').val();
+				var cor     = $('#cor').val();
+				var idhidden     = $('#idhidden').val();
+				// DADOS DO FORMULARIO
+				
+				var param = "POST_paramentro=delProduct&preco="+preco+"&produto="+produto+"&cor="+cor+"&id="+idhidden;
+				
+					upproduct(param);	
+					
+					
+			}
+		}else{
+			alert("Para esa ação é necessário selecionar o item na tabela abaixo primeiro.");
+		}
+});
+// FUNÇÕES DOS BOTÕES
+
+
+
+
+// FUNÇÕES
 function getproduct(param){
 	
 	$.ajax({
@@ -77,13 +133,14 @@ function getproduct(param){
 						htm += "		  <td>"+row.nome+"</td>";
 						htm += "		  <td>"+valorFormatado+"</td>";
 						htm += "		  <td>"+row.cor+"</td>";
+						htm += "		  <td><button type='button' onclick=\"subirdados('"+row.nome+"','"+row.cor+"','"+row.preco+"','"+row.idprod+"');\">selecionar</button></td>";
 						htm += "		</tr>";
 						
 					});	
 				
 				}else{
 						htm += "		<tr>";
-						htm += "		  <td colspan='3'>SEM REGISTROS</td>";
+						htm += "		  <td colspan='4'>SEM REGISTROS</td>";
 						htm += "		</tr>";
 				}
 
@@ -91,7 +148,6 @@ function getproduct(param){
 		   } // fim success
 		}); // fim ajax
 }
-
 
 function getcores(){
 	
@@ -125,4 +181,41 @@ function getcores(){
 				$("#corf").append(htm);
 		   } // fim success
 		}); // fim ajax
+}
+
+function subirdados(nome,cor,preco,id){
+	
+		$('#produto').val(nome);
+		$('#cor').val(cor);
+		$('#preco').val(preco);
+		$('#idhidden').val(id);
+	
+}
+
+// FUNÇÃO DE CHAMADA DE AÇÕES DO DB
+function upproduct(param){
+	
+		$.ajax({
+		   url:'./minserver/response.php', // ARQUIVO PHP QUE TRATA A RESPOSTA
+		   type:'POST', // método DE ENVIO
+		   data: param, //seus paramêtros
+		   dataType: "json", 
+		   error: function(jqXHR, textStatus, errorThrown) {
+				console.log('jqXHR: \n'+jqXHR);
+				console.log('textStatus: \n'+textStatus);
+				console.log('errorThrown: \n'+errorThrown);
+		   },
+		   success: function(data){ // sucesso de retorno executar função
+				var retorno = JSON.parse(JSON.stringify(data));
+				if(retorno){
+					alert("Ação executada com Sucesso!;");
+					window.location.reload();
+				}else{
+					alert("Falha ao executar ação!;");
+				}
+		   } // fim success
+		}); //
+	
+	
+	
 }

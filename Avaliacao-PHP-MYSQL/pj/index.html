@@ -23,6 +23,7 @@
 						
 					  <label for="produto">Produto:</label>
 					  <input type="text" id="produto" name="produto">
+					  <input type="hidden" id="idhidden" name="idhidden">
 					  
 					  <label for="preco">Preço:</label>
 					  <input type="text" id="preco" name="preco" onkeypress="$(this).mask('R$ #.##0,00', {reverse: true});" >
@@ -72,6 +73,7 @@
 						<th>Produto</th>
 						<th>Preço</th>
 						<th>Cor</th>
+						<th></th>
 					  </tr>
 				  </thead>
 				  <tbody id="result-view" >
@@ -81,6 +83,18 @@
 			</div>
 		
 		</main>
+		<foote>
+			<p class="fimpage" >
+			<br>
+			1)	Produtos das cores <b>AZUL</b> e <b>VERMELHO</b>, Terão um desconto de 20%.<br>
+			2)	Produtos das cores <b>AMARELO</b>, terão um desconto de 10%.<br>
+			3)	Produtos de cor <b>VERMELHO</b> e com VALOR MAIOR que R$ 50.00.  Será aplicado um desconto de 5%.<br><br>
+			OBS: Demais cores não será aplicado desconto.
+			</p>
+		
+		</foote>
+		
+		
 		  <!-- JS -->
 			  <script src="./js/jquery-3.5.1.js" type="text/javascript"></script>
 			  <script src="./js/jquery.mask.min.js" type="text/javascript"></script>
