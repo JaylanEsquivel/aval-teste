@@ -109,7 +109,9 @@ function setProduct($produto,$preco,$cor,$db){
 	$query      = $db->query("INSERT INTO `produtos`(`nome`, `cor`) VALUES ('$produto','$cor')");
 	$idprod     = $db->lastInsertId();
 	
-	$valor      = desconto(formatpreco($preco),$cor); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
+	// caso 0 desconto for aplicado na inserção esaa linha abaixo sera descomentada com sua funçao
+	//$valor      = desconto(formatpreco($preco),$cor); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
+	$valor      = formatpreco($preco); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
 	$query2     = $db->query("INSERT INTO `precos`(`idprod`, `preco`) VALUES ('$idprod','$valor')");
 		
 	return $query;
@@ -120,7 +122,8 @@ function upProduct($produto,$preco,$id,$db){
 	$query      = $db->query("UPDATE `produtos` SET `nome`='$produto' WHERE `idprod`= $id");
 	
 	$cor        = get_cor_produto($id);
-	$valor      = desconto(formatpreco($preco),$cor); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
+	//$valor      = desconto(formatpreco($preco),$cor); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
+	$valor      = formatpreco($preco); // AQUI EU FORMATO O VALOR E APLICO O DESCONTO
 	
 	$query2     = $db->query("UPDATE `precos` SET `preco`='$valor' WHERE `idprod` = $id");
 	
@@ -148,7 +151,7 @@ function formatpreco($preco){
 	return $preco_fim;
 	
 }
-
+/*  CASO DESCONTO SEJA APLICADO NO CADASTRO ESA FUNÇÃO SERÁ ATIVADA
 function desconto($valor,$cor){ // FUNÇÃO DE CALCULAR O DESCONTO
 	
 	switch ($cor) {
@@ -185,4 +188,4 @@ function desconto($valor,$cor){ // FUNÇÃO DE CALCULAR O DESCONTO
 	}
 	
 	return $valorcomdesconto;
-}
+}*/

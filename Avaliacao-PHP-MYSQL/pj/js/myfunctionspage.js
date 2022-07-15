@@ -126,7 +126,7 @@ function getproduct(param){
 				if(retorno){
 					
 					$.each(retorno, function( p, row ){
-						var valor = row.preco;
+						var valor = desconto(row.preco,row.cor); // aqui eu aplico os descontos caso seja na inserção ea erá retirada
 						var valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
 							
 						htm += "		<tr>";
@@ -190,6 +190,44 @@ function subirdados(nome,cor,preco,id){
 		$('#preco').val(preco);
 		$('#idhidden').val(id);
 	
+}
+
+function desconto(valor,cor){ // função para aplicar o desconto
+	var percentual = 0, desconto = 0,valorcomdesconto = 0;
+	switch (cor) {
+		case "AZUL":
+		
+				percentual = 20;
+				desconto = (percentual*valor)/100;
+				valorcomdesconto = valor - desconto;
+				
+			break;
+		case "VERMELHO":
+		
+			if(valor > 50){
+				percentual = 5;
+				desconto = (percentual*valor)/100;
+				valorcomdesconto = valor - desconto;
+			}else{
+				percentual = 20;
+				desconto = (percentual*valor)/100;
+				valorcomdesconto = valor - desconto;
+			}
+				
+				
+			break;	
+		case "AMARELO":
+		
+				percentual = 10;
+				desconto = (percentual*valor)/100;
+				valorcomdesconto = valor - desconto;
+				
+			break;
+		default:
+			valorcomdesconto = valor;
+	}
+	
+	return valorcomdesconto;
 }
 
 // FUNÇÃO DE CHAMADA DE AÇÕES DO DB
