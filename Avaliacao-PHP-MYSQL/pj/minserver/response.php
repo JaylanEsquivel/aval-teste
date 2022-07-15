@@ -10,6 +10,19 @@
 
 		$response = "Parametro informado";
 		
+		switch ($_POST['POST_paramentro']) {
+		  case "getProductLoja":
+		  
+				$response = get_product($_POST);
+			
+			break;
+		  case "getCores":
+				$response = get_cores();
+			break;
+		  default:
+			$response = "Parametro informado está inválido!";
+		}
+		
 		
 			
 			

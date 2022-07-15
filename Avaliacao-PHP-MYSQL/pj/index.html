@@ -25,7 +25,7 @@
 					  <input type="text" id="produto" name="produto">
 					  
 					  <label for="preco">Preço:</label>
-					  <input type="text" id="preco" name="preco">
+					  <input type="text" id="preco" name="preco" onkeypress="$(this).mask('R$ #.##0,00', {reverse: true});" >
 					  
 					  <label for="cor">Cor:</label>
 					  <input type="text" id="cor" name="cor">
@@ -38,8 +38,34 @@
 				</div>
 		</header>
 		<main>
-		
 			<div class="table-main">
+					<h3>Filtros:</h3>
+					  
+					<form id="buscar" method="get" action="#"> 
+						<fieldset>						 
+							<p style="float: left;margin-left: 20px; width: 100%;">
+							
+								<label><b>Nome do Produto:</b>
+								<input type="text" name="search" id="search" placeholder="pesquisar..." value="" />								
+							  
+  							    <span><b>Cor:</b></span>
+							    <select name="corf" id="corf">
+							    </select>
+								
+								<label><b>Preço:</b>
+								<input type="text" name="precof" id="precof" onkeypress="$(this).mask('R$ #.##0,00', {reverse: true});" value="" />	
+								<select name="tipo" id="tipo">
+									<option value="" selected>Selecione</option>
+									<option value="1" >Maior</option>
+									<option value="2" >Menor</option>
+									<option value="3" >Igual</option>
+							    </select>
+								
+							</p>
+						</fieldset>
+					</form>
+			
+			
 				<table>
 				  <thead>
 					  <tr>
@@ -57,6 +83,7 @@
 		</main>
 		  <!-- JS -->
 			  <script src="./js/jquery-3.5.1.js" type="text/javascript"></script>
+			  <script src="./js/jquery.mask.min.js" type="text/javascript"></script>
 			  <script src="./js/myfunctionspage.js" type="text/javascript"></script>
 		  <!-- JS -->
   </body>

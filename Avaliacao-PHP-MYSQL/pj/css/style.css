@@ -77,3 +77,19 @@ table {
   margin-top: 10px;
   border: 1px solid black;
 }
+
+thead{
+	background-color: #e5d3ff;
+}
+
+thead tr th{
+			border-bottom: 1px solid black;
+		padding: 5px;
+
+}
+
+tbody tr td{
+		padding: 10px;
+			border-bottom: 1px solid black;
+
+}
